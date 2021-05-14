@@ -17,7 +17,8 @@ function SearchBar() {
           boxSizing: 'border-box',
           border: '2px solid #ccc',
           backgroundColor: 'white',
-          backgroundImage: `url('https://www.pngfind.com/pngs/m/104-1043692_search-icon-transparent-white-search-icon-apple-png.png')`,
+          backgroundImage:
+            "url('https://www.pngfind.com/pngs/m/104-1043692_search-icon-transparent-white-search-icon-apple-png.png')",
           backgroundPosition: '7px',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'contain',

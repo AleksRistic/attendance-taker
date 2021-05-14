@@ -1,12 +1,3 @@
-/**
- * Notes to leave off on:
- * Redux is not working. Makes it to the reducer and then doesnt have anythign in the "draft"
- * Add students is waiting on courseId to be passed in. (Dependency on Redux)
- * Will need to make a "getStudentsForCourse(courseId)" api
- * Add button when selected changes the button for row of the same height on different pages
- * Space bar doesnt work when typing in the Add course modal
- * */
-
 import { React, useState } from 'react'
 import {
   Button,
@@ -21,7 +12,9 @@ import {
   FormText,
   Alert
 } from 'reactstrap'
+
 import { createCourse } from '../../services/postData'
+import { useSelector } from 'react-redux'
 import LoadingSymbol from '../loading'
 import '../../../src/App.css'
 
@@ -31,9 +24,9 @@ function CreateCourseModal({ buttonText, width, height, mainToggle }) {
   const [instructorName, setInstructorName] = useState()
   const [courseDesc, setCourseDesc] = useState()
   const [courseImage, setCourseImage] = useState()
-  const [studentFolder, setStudentFolder] = useState()
   const [visible, setVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const { instructorId } = useSelector((state) => state.instructor)
 
   const onDismiss = () => setVisible(false)
 
@@ -45,7 +38,13 @@ function CreateCourseModal({ buttonText, width, height, mainToggle }) {
       return
     }
     setIsLoading(true)
-    await createCourse(courseName, instructorName, courseDesc, courseImage)
+    await createCourse(
+      courseName,
+      instructorName,
+      courseDesc,
+      courseImage,
+      instructorId
+    )
     setIsLoading(false)
     mainToggle()
     toggle()
@@ -119,7 +118,11 @@ function CreateCourseModal({ buttonText, width, height, mainToggle }) {
             onClick={() => handleCreateClick()}
             style={{ borderRadius: '30px' }}
           >
-            {!isLoading ? 'Create Course' : <LoadingSymbol size={'sm'} />}
+            {!isLoading ? (
+              'Create Course'
+            ) : (
+              <LoadingSymbol size={'sm'} less={true} />
+            )}
           </Button>{' '}
           <Button
             color="secondary"

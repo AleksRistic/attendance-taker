@@ -8,7 +8,7 @@ export default (reducers) => {
       // transforms: [encryptor],
       key: 'srtreducers',
       storage: storageSession,
-      whitelist: ['main']
+      whitelist: ['main', 'instructor']
     },
     reducers
   )

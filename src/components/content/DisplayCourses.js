@@ -5,7 +5,13 @@ import LoadingSymbol from '../loading'
 import CourseHolder from '../CourseHolder'
 import CreateCourseModal from '../CreateContent/CreateCourseModal'
 
-function DisplayCourses({ data, mainToggle, isLoading }) {
+function DisplayCourses({
+  data,
+  mainToggle,
+  isLoading,
+  lessonPercentage,
+  tableLoading
+}) {
   const [currentPage, setCurrentPage] = useState(0)
   const { prevSelCourse, saveCurPage } = useSelector((state) => state.main)
   const pages = Math.ceil(data.length / 5)
@@ -60,23 +66,42 @@ function DisplayCourses({ data, mainToggle, isLoading }) {
       {data.length > 0 && (
         <>
           <PaginationItem>
-            <PaginationLink first onClick={(e) => handleFirstPageClick(e)} />
+            <PaginationLink
+              style={{ borderRadius: '30px' }}
+              first
+              onClick={(e) => handleFirstPageClick(e)}
+            />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink previous onClick={(e) => handlePrevClick(e)} />
+            <PaginationLink
+              style={{ borderRadius: '30px' }}
+              previous
+              onClick={(e) => handlePrevClick(e)}
+            />
           </PaginationItem>
           {[...Array(pages)].map((page, index) => (
             <PaginationItem active={index === currentPage} key={index}>
-              <PaginationLink onClick={(e) => handlePageClick(e, index)}>
+              <PaginationLink
+                style={{ borderRadius: '30px' }}
+                onClick={(e) => handlePageClick(e, index)}
+              >
                 {index + 1}
               </PaginationLink>
             </PaginationItem>
           ))}
           <PaginationItem>
-            <PaginationLink next onClick={(e) => handleNextClick(e)} />
+            <PaginationLink
+              style={{ borderRadius: '30px' }}
+              next
+              onClick={(e) => handleNextClick(e)}
+            />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink last onClick={(e) => handleLastPageClick(e)} />
+            <PaginationLink
+              style={{ borderRadius: '30px' }}
+              last
+              onClick={(e) => handleLastPageClick(e)}
+            />
           </PaginationItem>
         </>
       )}
@@ -108,6 +133,9 @@ function DisplayCourses({ data, mainToggle, isLoading }) {
                       desc={item.courseDesc}
                       image={item.courseImage.data}
                       currentPage={currentPage}
+                      lessonPercentage={lessonPercentage}
+                      tableLoading={tableLoading}
+                      mainToggle={mainToggle}
                     />
                   </div>
                 ))

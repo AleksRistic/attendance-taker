@@ -2,12 +2,20 @@ import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import CreateCourseModal from '../CreateContent/CreateCourseModal'
 import SearchBar from './SearchBar'
+import { useDispatch } from 'react-redux'
+import {
+  setInstructorId,
+  setIsSignedIn,
+  setIsSignedUp
+} from '../../store/modules/instructor/actions'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
 function NavBar({ mainToggle }) {
+  const dispatch = useDispatch()
+
   return (
     <Navbar
       bg="light"
@@ -29,7 +37,7 @@ function NavBar({ mainToggle }) {
             mainToggle={mainToggle}
           />
         </Nav.Link>
-        <Nav.Link href="#">
+        <Nav.Link style={{ margin: 'auto' }} href="#">
           <img
             width="25"
             height="25"
@@ -50,7 +58,11 @@ function NavBar({ mainToggle }) {
             style={{ width: '60px' }}
           >
             <li role="presentation">
-              <a role="menuitem" href="#">
+              <a
+                role="menuitem"
+                onClick={() => dispatch(setIsSignedIn(false))}
+                href="#"
+              >
                 Log Out
               </a>
             </li>

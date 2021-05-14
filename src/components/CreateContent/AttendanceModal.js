@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import AttendanceModalForm from './AttendanceModalForm'
 import '../../../src/App.css'
 
-function AttendanceModal({ buttonText, width, height, mainToggle }) {
+function AttendanceModal({ buttonText, width, height, mainToggle, disabled }) {
   const [modal, setModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [attendanceResults, setAttendanceResults] = useState([])
@@ -18,7 +18,7 @@ function AttendanceModal({ buttonText, width, height, mainToggle }) {
     if (modal) {
       setIsLoading(true)
       const result = await getFacialRecognitionData(CourseId)
-      console.log(result)
+
       let present = 0
       for (let status of result.data) {
         if (status.present) present++
@@ -40,6 +40,7 @@ function AttendanceModal({ buttonText, width, height, mainToggle }) {
         color="primary"
         onClick={toggle}
         style={{ width, height, padding: '0', borderRadius: '30px' }}
+        disabled={disabled}
       >
         {buttonText}
       </Button>

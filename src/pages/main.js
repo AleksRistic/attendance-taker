@@ -4,10 +4,15 @@ import {
   getCourses,
   getStudentsForCourse,
   getAttendanceData,
-  getCourseName
+  getCourseName,
+  getLessonData
 } from '../services/getData'
-import { useSelector } from 'react-redux'
-import { setCourseId } from '../store/modules/main/actions'
+import {
+  setCourseId,
+  setPrevSelCourseId,
+  setSaveCurPage
+} from '../store/modules/main/actions'
+import { useSelector, useDispatch } from 'react-redux'
 import DisplayTable from '../components/content/DisplayTable'
 import DisplayCourses from '../components/content/DisplayCourses'
 import NavBar from '../components/content/NavBar'
@@ -20,20 +25,43 @@ function main() {
   const [courses, setCourses] = useState([])
   const [toggle, setToggle] = useState(true)
   const { CourseId } = useSelector((state) => state.main)
+  const { instructorId } = useSelector((state) => state.instructor)
   const [coursesLoading, setCoursesLoading] = useState(true)
+  const [tableLoading, setTableLoading] = useState(true)
   const [courseName, setCourseName] = useState()
+  const [lessonPercentage, setLessonPercentage] = useState()
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    setCourseId(0)
+    dispatch(setCourseId(0))
+    dispatch(setPrevSelCourseId(0))
+    dispatch(setSaveCurPage(0))
   }, [])
 
   useEffect(() => {
     async function init() {
-      const courses = await getCourses()
+      setTableLoading(true)
+
+      const courses = await getCourses(instructorId)
       const students = await getStudentsForCourse(CourseId)
       const attendance = await getAttendanceData(CourseId)
       const name = await getCourseName(CourseId)
-      console.log(attendance)
+      const lessonData = await getLessonData(CourseId)
+
+      let lessons = {}
+      let data = lessonData.data
+      for (let i = lessonData.data.length - 1; i >= 0; i--) {
+        if (
+          data[i]['percentagePresent'] !== null &&
+          lessons[data[i]['courseId']] === undefined
+        ) {
+          lessons[data[i]['courseId']] = data[i]['percentagePresent']
+        }
+      }
+
+      setLessonPercentage(lessons)
+
       if (attendance) {
         for (let student of students.data) {
           for (let result of attendance.data) {
@@ -51,6 +79,7 @@ function main() {
       setStudents(students.data)
       setCourseName(name.data['courseName'])
       setCoursesLoading(false)
+      setTableLoading(false)
     }
     init()
   }, [toggle, CourseId])
@@ -70,6 +99,8 @@ function main() {
               courseId={CourseId}
               mainToggle={mainToggle}
               isLoading={coursesLoading}
+              tableLoading={tableLoading}
+              lessonPercentage={lessonPercentage}
             />
             <DisplayTable
               data={students}
@@ -93,3 +124,5 @@ main.propTypes = {
 }
 
 export default main
+
+// Student pool is getting all students, not just students from prev classes of an instructor

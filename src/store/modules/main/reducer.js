@@ -15,15 +15,15 @@ export default function main(state = INITIAL_STATE, action) {
 
   return produce(state, (draft) => {
     switch (action.type) {
-      case `@main/SET_COURSEID`:
+      case '@main/SET_COURSEID':
         draft.CourseId = action.payload.CourseId
         state.current = action.payload.CourseId
         break
-      case `@main/SET_PREV_SEL_COURSEID`:
+      case '@main/SET_PREV_SEL_COURSEID':
         draft.prevSelCourse = action.payload.CourseId
         state.current = action.payload.CourseId
         break
-      case `@main/SET_SAVE_CURPAGE`:
+      case '@main/SET_SAVE_CURPAGE':
         draft.saveCurPage = action.payload.currentPage
         state.current = action.payload.currentPage
         break

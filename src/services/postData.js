@@ -5,26 +5,22 @@ export async function createCourse(
   courseName,
   instructorName,
   courseDesc,
-  courseImage
+  courseImage,
+  instructorId
 ) {
   let formData = new FormData()
-  formData.append(`file`, courseImage[0])
-  formData.append(`courseName`, courseName)
-  formData.append(`instructorName`, instructorName)
-  formData.append(`imageName`, courseImage[0]['name'])
-  formData.append(`courseDesc`, courseDesc)
-
-  for (var data of formData) {
-    console.log(data)
-  }
+  formData.append('file', courseImage[0])
+  formData.append('courseName', courseName)
+  formData.append('instructorName', instructorName)
+  formData.append('imageName', courseImage[0]['name'])
+  formData.append('courseDesc', courseDesc)
+  formData.append('instructorId', instructorId)
 
   await apiAttach.post('/createcourse', formData)
 }
 
 export async function addNewStudents(studentFolder, courseId) {
-  console.log(studentFolder)
   for (let student of studentFolder) {
-    console.log(student)
     let formData = new FormData()
     formData.append('file', student)
     formData.append('courseId', courseId)
@@ -33,10 +29,7 @@ export async function addNewStudents(studentFolder, courseId) {
 }
 
 export async function addStudentsToCourse(selectedStudents, courseId) {
-  console.log('((((((((((((())))))))))))))))')
-  console.log(selectedStudents)
   for (let student of selectedStudents) {
-    console.log(student)
     await api.post('/addstudentstocourse', {
       studentId: student.student_id,
       courseId

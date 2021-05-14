@@ -5,14 +5,18 @@ export async function getNextId() {
   return result
 }
 
-export async function getCourses() {
-  const courses = await api.get('./getcourses')
+export async function getCourses(instructorId) {
+  const courses = await api.get('./getcourses', {
+    params: {
+      instructorId
+    }
+  })
   return courses
 }
 
 export async function getCourseName(courseId) {
   const courseName = await api.get('./getcoursename', { params: { courseId } })
-  console.log(courseName)
+
   return courseName
 }
 
@@ -27,7 +31,6 @@ export async function getStudents(studentId) {
 
 export async function getStudentsForCourse(courseId) {
   try {
-    console.log(courseId)
     const studentList = await api.get('/getstudentsforcourse', {
       params: { courseId }
     })
@@ -39,7 +42,6 @@ export async function getStudentsForCourse(courseId) {
 
 export async function getStudentsPool(courseId) {
   try {
-    console.log(courseId)
     const studentList = await api.get('/getstudentspool', {
       params: { courseId }
     })
@@ -51,7 +53,6 @@ export async function getStudentsPool(courseId) {
 
 export async function getFacialRecognitionData(courseId) {
   try {
-    console.log('Calling FacialRecogData')
     const studentList = await api.get('/getfacialrecogdata', {
       params: { courseId }
     })
@@ -63,11 +64,22 @@ export async function getFacialRecognitionData(courseId) {
 
 export async function getAttendanceData(courseId) {
   try {
-    console.log('Calling getAttendanceData')
+    if (courseId === 0) return
     const attendance = await api.get('/getattendacedata', {
       params: { courseId }
     })
     return attendance
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export async function getLessonData(courseId) {
+  try {
+    const lessonData = await api.get('/getlessondata', {
+      params: { courseId }
+    })
+    return lessonData
   } catch (err) {
     console.log(err)
   }

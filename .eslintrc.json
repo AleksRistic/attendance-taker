@@ -26,8 +26,10 @@
       {
         "singleQuote": true,
         "semi": false,
-        "trailingComma": "none"
+        "trailingComma": "none",
+        "endOfLine": "auto"
       }
-    ]
+    ],
+    "quotes": [2, "single", "avoid-escape"]
   }
 }

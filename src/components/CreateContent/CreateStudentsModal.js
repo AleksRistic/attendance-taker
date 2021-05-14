@@ -1,7 +1,3 @@
-/**
-  Get the students that arent already part of the course to show up
- * */
-
 import { React, useState, useEffect } from 'react'
 import {
   Button,
@@ -24,7 +20,15 @@ import { _arrayBufferToBase64 } from '../../utils/imageUtils'
 import { useSelector } from 'react-redux'
 import '../../../src/App.css'
 
-function CreateStudentsModal({ buttonText, width, height, mainToggle }) {
+function CreateStudentsModal({
+  buttonText,
+  width,
+  height,
+  mainToggle,
+  buttonColor,
+  outline,
+  disabled
+}) {
   const [modal, setModal] = useState(false)
   const [visible, setVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -42,15 +46,20 @@ function CreateStudentsModal({ buttonText, width, height, mainToggle }) {
   async function init() {
     setIsLoading(true)
     setSelectedStudents([])
-    const students = await getStudentsPool(CourseId)
+    let studentsList = []
+    if (modal) {
+      studentsList = await getStudentsPool(CourseId)
+      console.log(studentsList)
+    }
+    setStudents(studentsList)
+    console.log(studentsList)
 
-    setStudents(students)
     setIsLoading(false)
   }
 
   useEffect(() => {
     init()
-  }, [CourseId])
+  }, [modal])
 
   useEffect(() => {
     initPages()
@@ -153,10 +162,11 @@ function CreateStudentsModal({ buttonText, width, height, mainToggle }) {
   return (
     <div>
       <Button
-        outline
-        color="primary"
+        outline={outline}
+        color={buttonColor}
         onClick={toggle}
         style={{ width, height, padding: '0', borderRadius: '30px' }}
+        disabled={disabled}
       >
         {buttonText}
       </Button>
@@ -245,7 +255,11 @@ function CreateStudentsModal({ buttonText, width, height, mainToggle }) {
             onClick={() => handleAddClick()}
             style={{ borderRadius: '30px' }}
           >
-            {!isLoading ? 'Add Student(s)' : <LoadingSymbol size={'sm'} />}
+            {!isLoading ? (
+              'Add Student(s)'
+            ) : (
+              <LoadingSymbol size={'sm'} less={true} />
+            )}
           </Button>{' '}
           <Button
             color="secondary"

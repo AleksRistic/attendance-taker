@@ -1,5 +1,5 @@
 import React from 'react'
-import { Progress, Spinner, ListGroup, ListGroupItem } from 'reactstrap'
+import { Progress, ListGroup, ListGroupItem } from 'reactstrap'
 import LoadingSymbol from '../loading'
 
 function AttendanceModalForm({ numStudents, present, isLoading, mainToggle }) {
