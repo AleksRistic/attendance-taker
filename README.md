@@ -43,6 +43,6 @@ After adding students to the class, you can view them in the table and select 'T
 It will take Roughly 10 seconds for the camera the turn on and begin the attendance process. 
 Once completed, the table will fill with the attendance information.
 
-![image](https://user-images.githubusercontent.com/51182671/117602710-37dbbd80-b106-11eb-9a76-451eb2523713.png)
+![image](https://user-images.githubusercontent.com/51182671/118238834-eefd6f00-b44d-11eb-900c-976d50dd32e9.png)
 
 I hope you enjoy!
