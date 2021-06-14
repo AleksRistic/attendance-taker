@@ -2,7 +2,10 @@
 
 import { React, useState } from 'react'
 import { Form, FormGroup, Label, Input, FormText } from 'reactstrap'
-import { createCourse } from '../../services/postData'
+
+/**
+ * Form section of the modal, holds inputs, buttons and their handlers.
+ */
 
 function CourseForm() {
   const [courseName, setCourseName] = useState()

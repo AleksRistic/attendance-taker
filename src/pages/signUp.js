@@ -24,6 +24,7 @@ function signUp() {
       password
     })
 
+    dispatch(setIsSignedUp(true))
     if (response.data === 'Success') {
       history.push('/login', { email: email, password: password })
     }

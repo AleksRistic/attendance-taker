@@ -2,6 +2,10 @@ import React from 'react'
 import { Progress, ListGroup, ListGroupItem } from 'reactstrap'
 import LoadingSymbol from '../loading'
 
+/**
+ * Form section of the modal, holds inputs, buttons and their handlers.
+ */
+
 function AttendanceModalForm({ numStudents, present, isLoading, mainToggle }) {
   return (
     <div>
