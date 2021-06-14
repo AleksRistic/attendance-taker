@@ -27,7 +27,7 @@ Begin by creating a course by selecting the 'Course +' button. Fill in the neede
 
 Once created, select 'View Attendance' to see see the table of students for that class. 
 
-![image](https://user-images.githubusercontent.com/51182671/117602943-b6d0f600-b106-11eb-9776-e6e4248dfc51.png)
+![image](https://user-images.githubusercontent.com/51182671/118238729-c2495780-b44d-11eb-8826-da968706427d.png)
 
 To add students, select the 'Add Students' button at the top of the table. 
 
@@ -43,6 +43,6 @@ After adding students to the class, you can view them in the table and select 'T
 It will take Roughly 10 seconds for the camera the turn on and begin the attendance process. 
 Once completed, the table will fill with the attendance information.
 
-![image](https://user-images.githubusercontent.com/51182671/117602710-37dbbd80-b106-11eb-9a76-451eb2523713.png)
+![image](https://user-images.githubusercontent.com/51182671/118238834-eefd6f00-b44d-11eb-900c-976d50dd32e9.png)
 
 I hope you enjoy!
